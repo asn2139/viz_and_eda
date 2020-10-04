@@ -263,4 +263,59 @@ weather_df %>%
 
     ## Warning: Removed 3 rows containing missing values (geom_segment).
 
-![](viz_and_eda_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+![](viz_and_eda_files/figure-gfm/unnamed-chunk-16-1.png)<!-- --> Ridge
+plots– the most popular plot of 2017
+
+``` r
+weather_df %>% 
+ggplot (aes(x= tmin, y= name))+
+  geom_density_ridges(alpha=.3)
+```
+
+    ## Picking joint bandwidth of 1.67
+
+    ## Warning: Removed 15 rows containing non-finite values (stat_density_ridges).
+
+![](viz_and_eda_files/figure-gfm/unnamed-chunk-17-1.png)<!-- --> \#\#
+Save and Embed
+
+Let’s save a scatterplot
+
+``` r
+weather_plot=
+weather_df %>% 
+  ggplot(aes(x=tmin, y = tmax, color=name))+
+  geom_point(alpha=0.5)
+
+ggsave("./results/weather_plot.pdf", weather_plot, width=8, height=5)
+```
+
+    ## Warning: Removed 15 rows containing missing values (geom_point).
+
+What about embedding…
+
+``` r
+weather_plot
+```
+
+    ## Warning: Removed 15 rows containing missing values (geom_point).
+
+![](viz_and_eda_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+
+``` r
+weather_plot
+```
+
+    ## Warning: Removed 15 rows containing missing values (geom_point).
+
+![](viz_and_eda_files/figure-gfm/fig.height-6-1.png)<!-- -->
+
+Embed at different size
+
+``` r
+weather_plot
+```
+
+    ## Warning: Removed 15 rows containing missing values (geom_point).
+
+![](viz_and_eda_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
