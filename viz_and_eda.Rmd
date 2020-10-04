@@ -76,8 +76,77 @@ Let's facet some things!
 ```{r}
 weather_df %>% 
   ggplot(aes(x= tmin, y = tmax, color= name))+
-  geom_point()+
+  geom_point(alpha= .2)+
   geom_smooth(se=FALSE)+
   facet_grid(. ~ name)
+```
+Let's combine some elements and try a new plot.
+
+```{r}
+
+weather_df %>% 
+  ggplot(aes(x=date, y=tmax, color=name))+
+  geom_point(aes(size=prcp), alpha=0.5)+
+  geom_smooth(se=FALSE)+
+  facet_grid(. ~ name)
+```
+## Some small notes
+
+How many geoms have to exist
+
+```{r}
+weather_df %>% 
+  ggplot(aes(x=tmin, y=tmax, color=name))+
+  geom_smooth(se=FALSE)
+```
+You can use a neat geom!
+
+```{r}
+
+weather_df %>% 
+  ggplot(aes(x=tmin, y=tmax))+
+  geom_density2d()+
+  geom_point()
+```
+## Univariate plots
+
+Histograms are really great.
+
+```{r}
+weather_df %>% 
+  ggplot(aes(x=tmin))+
+  geom_histogram()
+```
+
+Can we add color...
+
+```{r}
+weather_df %>% 
+  ggplot(aes(x=tmin, fill= name))+
+  geom_histogram()+
+facet_grid(. ~ name)
+```
+Let's try a new geometry!
+
+```{r}
+weather_df %>% 
+  ggplot(aes(x=tmin, fill=name))+
+  geom_density(alpha=.3, adjust=.5)
+```
+What about boxplots??
+
+```{r}
+weather_df %>% 
+  ggplot(aes(x=name,y = tmin))+
+  geom_boxplot()
+```
+
+Trendy plots 
+
+```{r}
+weather_df %>% 
+  ggplot(aes(x= name, y= tmin, fill=name))+
+  geom_violin(alpha=0.4)+
+  stat_summary(fun="median")
 ```
 

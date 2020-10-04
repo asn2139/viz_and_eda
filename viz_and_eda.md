@@ -5,14 +5,14 @@ viz\_part\_1
 library(tidyverse)
 ```
 
-    ## ── Attaching packages ─────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──
+    ## ── Attaching packages ──────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──
 
     ## ✓ ggplot2 3.3.2     ✓ purrr   0.3.4
     ## ✓ tibble  3.0.3     ✓ dplyr   1.0.2
     ## ✓ tidyr   1.1.2     ✓ stringr 1.4.0
     ## ✓ readr   1.3.1     ✓ forcats 0.5.0
 
-    ## ── Conflicts ────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+    ## ── Conflicts ─────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
     ## x dplyr::filter() masks stats::filter()
     ## x dplyr::lag()    masks stats::lag()
 
@@ -137,7 +137,7 @@ facet some things\!
 ``` r
 weather_df %>% 
   ggplot(aes(x= tmin, y = tmax, color= name))+
-  geom_point()+
+  geom_point(alpha= .2)+
   geom_smooth(se=FALSE)+
   facet_grid(. ~ name)
 ```
@@ -148,4 +148,119 @@ weather_df %>%
 
     ## Warning: Removed 15 rows containing missing values (geom_point).
 
-![](viz_and_eda_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](viz_and_eda_files/figure-gfm/unnamed-chunk-8-1.png)<!-- --> Let’s
+combine some elements and try a new plot.
+
+``` r
+weather_df %>% 
+  ggplot(aes(x=date, y=tmax, color=name))+
+  geom_point(aes(size=prcp), alpha=0.5)+
+  geom_smooth(se=FALSE)+
+  facet_grid(. ~ name)
+```
+
+    ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_smooth).
+
+    ## Warning: Removed 3 rows containing missing values (geom_point).
+
+![](viz_and_eda_files/figure-gfm/unnamed-chunk-9-1.png)<!-- --> \#\#
+Some small notes
+
+How many geoms have to exist
+
+``` r
+weather_df %>% 
+  ggplot(aes(x=tmin, y=tmax, color=name))+
+  geom_smooth(se=FALSE)
+```
+
+    ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+
+    ## Warning: Removed 15 rows containing non-finite values (stat_smooth).
+
+![](viz_and_eda_files/figure-gfm/unnamed-chunk-10-1.png)<!-- --> You can
+use a neat geom\!
+
+``` r
+weather_df %>% 
+  ggplot(aes(x=tmin, y=tmax))+
+  geom_density2d()+
+  geom_point()
+```
+
+    ## Warning: Removed 15 rows containing non-finite values (stat_density2d).
+
+    ## Warning: Removed 15 rows containing missing values (geom_point).
+
+![](viz_and_eda_files/figure-gfm/unnamed-chunk-11-1.png)<!-- --> \#\#
+Univariate plots
+
+Histograms are really great.
+
+``` r
+weather_df %>% 
+  ggplot(aes(x=tmin))+
+  geom_histogram()
+```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+    ## Warning: Removed 15 rows containing non-finite values (stat_bin).
+
+![](viz_and_eda_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+
+Can we add color…
+
+``` r
+weather_df %>% 
+  ggplot(aes(x=tmin, fill= name))+
+  geom_histogram()+
+facet_grid(. ~ name)
+```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+    ## Warning: Removed 15 rows containing non-finite values (stat_bin).
+
+![](viz_and_eda_files/figure-gfm/unnamed-chunk-13-1.png)<!-- --> Let’s
+try a new geometry\!
+
+``` r
+weather_df %>% 
+  ggplot(aes(x=tmin, fill=name))+
+  geom_density(alpha=.3, adjust=.5)
+```
+
+    ## Warning: Removed 15 rows containing non-finite values (stat_density).
+
+![](viz_and_eda_files/figure-gfm/unnamed-chunk-14-1.png)<!-- --> What
+about boxplots??
+
+``` r
+weather_df %>% 
+  ggplot(aes(x=name,y = tmin))+
+  geom_boxplot()
+```
+
+    ## Warning: Removed 15 rows containing non-finite values (stat_boxplot).
+
+![](viz_and_eda_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+
+Trendy plots
+
+``` r
+weather_df %>% 
+  ggplot(aes(x= name, y= tmin, fill=name))+
+  geom_violin(alpha=0.4)+
+  stat_summary(fun="median")
+```
+
+    ## Warning: Removed 15 rows containing non-finite values (stat_ydensity).
+
+    ## Warning: Removed 15 rows containing non-finite values (stat_summary).
+
+    ## Warning: Removed 3 rows containing missing values (geom_segment).
+
+![](viz_and_eda_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
