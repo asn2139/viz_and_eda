@@ -214,9 +214,30 @@ weather_df %>%
   viridis::scale_color_viridis(
     name="Location",
     discrete=TRUE)+
-  theme_minimal()
+  theme_minimal()+
+  theme(legend.position="bottom")
 ```
 
     ## Warning: Removed 15 rows containing missing values (geom_point).
 
-![](viz_and_eda_ii_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](viz_and_eda_ii_files/figure-gfm/unnamed-chunk-9-1.png)<!-- --> \#\#
+Setting options
+
+``` r
+library(tidyverse)
+
+knitr::opts_chunk$set(
+  fig.width=6,
+  fig.asp= .6,
+  out.width= "90%"
+)
+theme_set(theme_minimal()+theme(legend.position="bottom"))
+
+options(
+  ggplot2.continuous.color="viridis",
+  ggplot2.continuous.fill= "viridis"
+)
+
+scale_color_discrete= scale_color_viridis_d
+scale_fill_discrete= scale_color_viridis_d
+```
