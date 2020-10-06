@@ -232,7 +232,7 @@ weather_df %>%
     values_to="temperatures"
     
   ) %>% 
-  ggplot(aes(x=temperatures, fill=observation)+
+  ggplot(aes(x=temperatures, fill=observation))+
            geom_density(alpha=0.5)+
             facet_grid(.~ name)
 ```
