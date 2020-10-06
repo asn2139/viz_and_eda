@@ -1,0 +1,55 @@
+---
+title: "viz_part"
+subtitle: "Part 2"
+output: github_document
+---
+
+```{r}
+library(tidyverse)
+library(patchwork)
+```
+
+##Load the weather data
+
+```{r}
+weather_df = 
+  rnoaa::meteo_pull_monitors(
+    c("USW00094728", "USC00519397", "USS0023B17S"),
+    var = c("PRCP", "TMIN", "TMAX"), 
+    date_min = "2017-01-01",
+    date_max = "2017-12-31") %>%
+  mutate(
+    name = recode(
+      id, 
+      USW00094728 = "CentralPark_NY", 
+      USC00519397 = "Waikiki_HA",
+      USS0023B17S = "Waterhole_WA"),
+    tmin = tmin / 10,
+    tmax = tmax / 10) %>%
+  select(name, id, everything())
+
+weather_df
+```
+
+## Remember this plot..?
+
+```{r}
+weather_df %>% 
+  ggplot(aes(x=tmin, y=tmax, color= name)) + 
+  geom_point(alpha= .5)
+  
+```
+##Labels 
+
+```{r}
+weather_df %>% 
+  ggplot(aes(x=tmin, y=tmax, color= name)) + 
+  geom_point(alpha= .5) +
+  labs(
+    title="temperature plot",
+    x="Min Daily Temperature (C)",
+    y="Max Daily Temperature (C)",
+    caption="Data from rnoaa package"
+  )
+```
+
