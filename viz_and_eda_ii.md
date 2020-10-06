@@ -260,4 +260,40 @@ ggplot(data=waikiki, aes(x= date, y=tmax, color=name))+
 
     ## Warning: Removed 3 rows containing missing values (geom_point).
 
-![](viz_and_eda_ii_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](viz_and_eda_ii_files/figure-gfm/unnamed-chunk-11-1.png)<!-- --> \#\#
+`patchwork`
+
+what happens when you want multipanel plots but can’t facet?
+
+``` r
+tmax_tmin_p=
+  weather_df %>% 
+  ggplot(aes(x=tmin, y=tmax, color=name))+
+  geom_point(alpha=.5)+
+  theme(legend.position="none")
+
+prcp_dens_p=
+  weather_df %>% 
+  filter(prcp>0) %>% 
+  ggplot(aes(x=prcp, fill=name))+
+  geom_density(alpha=0.5)
+
+tmax_date_p=
+  weather_df %>% 
+  ggplot(aes(x=date, y=tmax, color=name))+
+  geom_point()+
+  geom_smooth(se=FALSE)+
+  theme(legend.position="none")
+
+tmax_tmin_p+tmax_date_p
+```
+
+    ## Warning: Removed 15 rows containing missing values (geom_point).
+
+    ## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+
+    ## Warning: Removed 3 rows containing non-finite values (stat_smooth).
+
+    ## Warning: Removed 3 rows containing missing values (geom_point).
+
+![](viz_and_eda_ii_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->

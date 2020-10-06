@@ -180,4 +180,31 @@ ggplot(data=waikiki, aes(x= date, y=tmax, color=name))+
   geom_point()+
   geom_line(data=central_park)
 ```
+## `patchwork`
+
+
+what happens when you want multipanel plots but can't facet?
+
+```{r}
+tmax_tmin_p=
+  weather_df %>% 
+  ggplot(aes(x=tmin, y=tmax, color=name))+
+  geom_point(alpha=.5)+
+  theme(legend.position="none")
+
+prcp_dens_p=
+  weather_df %>% 
+  filter(prcp>0) %>% 
+  ggplot(aes(x=prcp, fill=name))+
+  geom_density(alpha=0.5)
+
+tmax_date_p=
+  weather_df %>% 
+  ggplot(aes(x=date, y=tmax, color=name))+
+  geom_point()+
+  geom_smooth(se=FALSE)+
+  theme(legend.position="none")
+
+tmax_tmin_p+tmax_date_p
+```
 
