@@ -175,4 +175,25 @@ weather_df %>%
   ggplot(aes(x=date, y=centered_tmax, color=name))+
   geom_point()
 ```
+what about windows function
+
+ranking...
+```{r}
+
+weather_df %>% 
+  group_by(name, month) %>% 
+  mutate(temp_rank=min_rank(desc(tmax)))
+```
+
+lag
+
+```{r}
+weather_df %>% 
+  group_by(name) %>% 
+  mutate(temp_change=tmax- lag(tmax)) %>% 
+  summarize(
+    temp_change_max= max(temp_change, na.rm=TRUE),
+    temp_change_sd= sd(temp_change, na.rm=TRUE)
+  )
+```
 
