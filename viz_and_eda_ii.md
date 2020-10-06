@@ -5,14 +5,14 @@ viz\_part
 library(tidyverse)
 ```
 
-    ## ── Attaching packages ─────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──
+    ## ── Attaching packages ───────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──
 
     ## ✓ ggplot2 3.3.2     ✓ purrr   0.3.4
     ## ✓ tibble  3.0.3     ✓ dplyr   1.0.2
     ## ✓ tidyr   1.1.2     ✓ stringr 1.4.0
     ## ✓ readr   1.3.1     ✓ forcats 0.5.0
 
-    ## ── Conflicts ────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+    ## ── Conflicts ──────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
     ## x dplyr::filter() masks stats::filter()
     ## x dplyr::lag()    masks stats::lag()
 
@@ -109,3 +109,70 @@ weather_df %>%
     ## Warning: Removed 15 rows containing missing values (geom_point).
 
 ![](viz_and_eda_ii_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+
+## Scales
+
+``` r
+weather_df %>% 
+  ggplot(aes(x=tmin, y=tmax, color= name)) + 
+  geom_point(alpha= .5) +
+  labs(
+    title="temperature plot",
+    x="Min Daily Temperature (C)",
+    y="Max Daily Temperature (C)",
+    caption="Data from rnoaa package"
+  ) +
+  scale_x_continuous(
+    breaks= c(-15, 0, 15),
+    labels=c("-15 C", "0", "15")
+    
+  )+
+  scale_y_continuous(
+    position="right"
+  )
+```
+
+    ## Warning: Removed 15 rows containing missing values (geom_point).
+
+![](viz_and_eda_ii_files/figure-gfm/unnamed-chunk-5-1.png)<!-- --> \#\#
+Look at color scales
+
+``` r
+weather_df %>% 
+  ggplot(aes(x=tmin, y=tmax, color= name)) + 
+  geom_point(alpha= .5) +
+  labs(
+    title="temperature plot",
+    x="Min Daily Temperature (C)",
+    y="Max Daily Temperature (C)",
+    caption="Data from rnoaa package"
+  )+
+  scale_color_hue(
+    name="Location",
+    h=c(100,200))
+```
+
+    ## Warning: Removed 15 rows containing missing values (geom_point).
+
+![](viz_and_eda_ii_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+
+## More colors
+
+``` r
+weather_df %>% 
+  ggplot(aes(x=tmin, y=tmax, color= name)) + 
+  geom_point(alpha= .5) +
+  labs(
+    title="temperature plot",
+    x="Min Daily Temperature (C)",
+    y="Max Daily Temperature (C)",
+    caption="Data from rnoaa package"
+  )+
+  viridis::scale_color_viridis(
+    name="Location",
+    discrete=TRUE)
+```
+
+    ## Warning: Removed 15 rows containing missing values (geom_point).
+
+![](viz_and_eda_ii_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->

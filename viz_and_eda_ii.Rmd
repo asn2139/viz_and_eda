@@ -53,3 +53,59 @@ weather_df %>%
   )
 ```
 
+## Scales
+
+```{r}
+
+weather_df %>% 
+  ggplot(aes(x=tmin, y=tmax, color= name)) + 
+  geom_point(alpha= .5) +
+  labs(
+    title="temperature plot",
+    x="Min Daily Temperature (C)",
+    y="Max Daily Temperature (C)",
+    caption="Data from rnoaa package"
+  ) +
+  scale_x_continuous(
+    breaks= c(-15, 0, 15),
+    labels=c("-15 C", "0", "15")
+    
+  )+
+  scale_y_continuous(
+    position="right"
+  )
+```
+## Look at color scales
+
+```{r}
+weather_df %>% 
+  ggplot(aes(x=tmin, y=tmax, color= name)) + 
+  geom_point(alpha= .5) +
+  labs(
+    title="temperature plot",
+    x="Min Daily Temperature (C)",
+    y="Max Daily Temperature (C)",
+    caption="Data from rnoaa package"
+  )+
+  scale_color_hue(
+    name="Location",
+    h=c(100,200))
+```
+
+## More colors
+
+```{r}
+weather_df %>% 
+  ggplot(aes(x=tmin, y=tmax, color= name)) + 
+  geom_point(alpha= .5) +
+  labs(
+    title="temperature plot",
+    x="Min Daily Temperature (C)",
+    y="Max Daily Temperature (C)",
+    caption="Data from rnoaa package"
+  )+
+  viridis::scale_color_viridis(
+    name="Location",
+    discrete=TRUE)
+```
+
