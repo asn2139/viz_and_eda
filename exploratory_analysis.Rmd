@@ -1,0 +1,53 @@
+---
+title: "exploratory_analysis"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+
+library(tidyverse)
+knitr::opts_chunk$set(
+  fig.width=6,
+  fig.asp=.6,
+  out.width="90%"
+  
+) 
+theme_set(theme_minimal()+theme(legend.position="bottom"))
+
+options(
+  ggplot2.continuous.color="viridis",
+  ggplot2.continuous.fill= "viridis"
+)
+
+scale_color_discrete= scale_color_viridis_d
+scale_fill_discrete= scale_color_viridis_d
+```
+
+##Load the weather data
+
+```{r}
+weather_df = 
+  rnoaa::meteo_pull_monitors(
+    c("USW00094728", "USC00519397", "USS0023B17S"),
+    var = c("PRCP", "TMIN", "TMAX"), 
+    date_min = "2017-01-01",
+    date_max = "2017-12-31") %>%
+  mutate(
+    name = recode(
+      id, 
+      USW00094728 = "CentralPark_NY", 
+      USC00519397 = "Waikiki_HA",
+      USS0023B17S = "Waterhole_WA"),
+    tmin = tmin / 10,
+    tmax = tmax / 10,
+    month=lubridate::floor_date(date, unit="month")) %>% 
+  select(name, id, everything())
+
+```
+
+## `group_by`
+
+```{r}
+
+```
+
