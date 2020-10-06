@@ -163,4 +163,16 @@ weather_df %>%
   ) %>% 
   knitr::kable(digits=1)
 ```
+## `group_by` and `mutate`
+
+```{r}
+weather_df %>% 
+  group_by(name) %>% 
+  mutate(
+    mean_tmax=mean(tmax, na.rm=TRUE),
+    centered_tmax= tmax - mean_tmax
+  ) %>% 
+  ggplot(aes(x=date, y=centered_tmax, color=name))+
+  geom_point()
+```
 

@@ -304,3 +304,20 @@ weather_df %>%
 | 2017-10-01 |            21.8 |        30.3 |           8.3 |
 | 2017-11-01 |            12.3 |        28.4 |           1.4 |
 | 2017-12-01 |             4.5 |        26.5 |           2.2 |
+
+## `group_by` and `mutate`
+
+``` r
+weather_df %>% 
+  group_by(name) %>% 
+  mutate(
+    mean_tmax=mean(tmax, na.rm=TRUE),
+    centered_tmax= tmax - mean_tmax
+  ) %>% 
+  ggplot(aes(x=date, y=centered_tmax, color=name))+
+  geom_point()
+```
+
+    ## Warning: Removed 3 rows containing missing values (geom_point).
+
+<img src="exploratory_analysis_files/figure-gfm/unnamed-chunk-13-1.png" width="90%" />
